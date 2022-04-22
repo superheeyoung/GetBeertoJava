@@ -1,23 +1,28 @@
 package com.example.myapplication.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
 import com.example.myapplication.R;
-import com.example.myapplication.data.api.BeerApi;
 
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
-    private MainViewModel mainViewModel = new MainViewModel();
+    private MainViewModel mainViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initViewModel();
         mainViewModel.getBeerList();
+    }
+
+
+    private void initViewModel() {
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
     }
 }
